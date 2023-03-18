@@ -1,10 +1,3 @@
-class Node {
-  constructor(data = null, next = null) {
-    this.data = data;
-    this.next = next;
-  }
-}
-
 class LinkedList {
   constructor() {
     this.listHead = null;
@@ -75,6 +68,17 @@ class LinkedList {
     }
     currentNode.next = null;
     this.listSize--;
+  }
+  contains(value) {
+    let currentNode = this.listHead;
+
+    while (currentNode) {
+      if (currentNode.data == value) {
+        return true;
+      }
+      currentNode = currentNode.next;
+    }
+    return false;
   }
   find(value) {
     let currentIndex = 1;
