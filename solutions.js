@@ -100,4 +100,87 @@ class LinkedList {
     formattedString += "null";
     return formattedString;
   }
+  insertAt(value, givenIndex) {
+    if (givenIndex > this.listSize) {
+      return "List isn't that long!";
+    } else if (givenIndex < 1) {
+      return "List isn't that small!";
+    }
+
+    if (givenIndex == 1) {
+      let newNode = new Node(value);
+
+      newNode.next = this.listHead.next;
+      this.listHead = newNode;
+    } else if (givenIndex == this.listSize) {
+      let nodeBeforeTail = this.listHead;
+
+      while (nodeBeforeTail.next.next != null) {
+        nodeBeforeTail = nodeBeforeTail.next;
+      }
+      let newTailNode = new Node(value);
+      nodeBeforeTail.next = newTailNode;
+    } else {
+      let nodeBefore = this.listHead;
+      let currentIndex = 1;
+
+      while (currentIndex + 1 < givenIndex) {
+        nodeBefore = nodeBefore.next;
+        currentIndex++;
+      }
+
+      let nodeAtGivenIndex = this.listHead;
+      currentIndex = 1;
+
+      while (currentIndex < givenIndex) {
+        nodeAtGivenIndex = nodeAtGivenIndex.next;
+        currentIndex++;
+      }
+
+      let newNode = new Node(value);
+      newNode.next = nodeAtGivenIndex.next;
+
+      nodeBefore.next = newNode;
+    }
+  }
+  removeAt(givenIndex) {
+    if (givenIndex > this.listSize) {
+      return "List isn't that long!";
+    } else if (givenIndex < 1) {
+      return "List isn't that small!";
+    }
+
+    if (givenIndex == 1) {
+      this.listHead = this.listHead.next;
+      this.listSize--;
+    } else if (givenIndex == this.listSize) {
+      let nodeBefore = this.listHead;
+      let currentIndex = 1;
+
+      while (currentIndex + 1 < givenIndex) {
+        nodeBefore = nodeBefore.next;
+        currentIndex++;
+      }
+      nodeBefore.next = null;
+      this.listSize--;
+    } else {
+      let nodeBefore = this.listHead;
+      let currentIndex = 1;
+
+      while (currentIndex + 1 < givenIndex) {
+        nodeBefore = nodeBefore.next;
+        currentIndex++;
+      }
+
+      let nodeAfter = this.listHead;
+      currentIndex = 1;
+
+      while (currentIndex < givenIndex + 1) {
+        nodeAfter = nodeAfter.next;
+        currentIndex++;
+      }
+      nodeBefore.next = nodeAfter;
+      this.listSize--;
+    }
+  }
 }
